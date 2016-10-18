@@ -34,7 +34,6 @@ public class AdcolonyAdapter extends ActivityObserver
 
         _listener = new AdColonyInterstitialListener()
         {
-            /** Ad passed back in request filled callback, ad can now be shown */
             @Override
             public void onRequestFilled( AdColonyInterstitial ad )
             {

@@ -71,6 +71,75 @@ extern "C"
     }*/
 }
 
+bool jniAdcolonyIsLoaded()
+{
+	if (!isAdcolonyEnabled())
+        return false;
+
+    bool result = false;
+    try
+    {
+        JNIEnv* env = jniGetEnv();
+        LOCAL_REF_HOLDER(env);
+
+        jmethodID jisloaded = env->GetMethodID(_jAdcolonyClass, "isLoggedIn", "()Z");
+        JNI_NOT_NULL(jisloaded);
+
+        jboolean jb = env->CallBooleanMethod(_jAdcolonyObject, jisloaded);
+        result = (bool) jb;
+
+    }
+    catch (const notFound&)
+    {
+        log::error("jniAdcolonyIsLoaded failed, class/member not found");
+    }
+
+    return result;
+}
+
+void jniAdcolonyLoad()
+{
+	if (!isAdcolonyEnabled())
+	        return false;
+
+	try
+    {
+        JNIEnv* env = jniGetEnv();
+        LOCAL_REF_HOLDER(env);
+
+        jmethodID jmethod = env->GetMethodID(_jAdcolonyClass, "load", "()V");
+        JNI_NOT_NULL(jmethod);
+
+        env->CallVoidMethod(_jAdcolonyObject, jmethod);
+    }
+    catch (const notFound&)
+    {
+        log::error("jniAdcolonyLoad failed, class/member not found");
+    }
+
+}
+
+void jniAdcolonyShow()
+{
+	if (!isAdcolonyEnabled())
+	        return false;
+
+	try
+    {
+        JNIEnv* env = jniGetEnv();
+        LOCAL_REF_HOLDER(env);
+
+        jmethodID jmethod = env->GetMethodID(_jAdcolonyClass, "show", "()V");
+        JNI_NOT_NULL(jmethod);
+
+        env->CallVoidMethod(_jAdcolonyObject, jmethod);
+    }
+    catch (const notFound&)
+    {
+        log::error("jniAdcolonyShow failed, class/member not found");
+    }
+}
+
 
 void onChangeStatus(int status)
 {

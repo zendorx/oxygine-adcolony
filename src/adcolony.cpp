@@ -23,6 +23,14 @@ namespace adcolony
         return _dispatcher;
     }
 
+	void load()
+	{
+	}
+
+	void show()
+	{
+	}
+
     void init()
     {
 #if !ADCOLONY_EXT_ENABLED
@@ -67,7 +75,7 @@ namespace adcolony
         void onChange(int status)
         {
             OnChangeEvent ev(status);
-            _dispatcher->dispatcherEvent(&ev);
+            _dispatcher->dispatchEvent(&ev);
         }
     }
 }

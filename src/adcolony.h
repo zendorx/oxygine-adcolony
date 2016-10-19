@@ -14,26 +14,27 @@ namespace adcolony
 
     void init();
     void free();
-    enum AdcolonyStatus{
-        ON_LOADED = 1,
-        ON_FAILED = 2,
-        ON_OPENED = 3,
-        ON_EXPIRED = 4,
-    }
+	enum AdcolonyStatus {
+		NONE = 0,
+		ON_LOADED = 1,
+		ON_FAILED = 2,
+		ON_OPENED = 3,
+		ON_EXPIRED = 4,
+	};
 
     class OnChangeEvent : public Event
     {
     public:
         enum { EVENT = sysEventID('A', 'D', 'C')};
         OnChangeEvent(int status) : Event(EVENT), status(AdcolonyStatus(status)) {};
-        AdcolonyStatus status = 0;
+        AdcolonyStatus status = NONE;
     };
 
     spEventDispatcher dispatcher();
 
-    bool isLoaded();
-    void load();
-    void show();
+	bool isLoaded();
+	void load();
+	void show();
 
     namespace internal
     {

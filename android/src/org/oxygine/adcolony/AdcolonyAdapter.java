@@ -28,9 +28,12 @@ public class AdcolonyAdapter extends ActivityObserver
 
     public AdcolonyAdapter(Activity activity, String APP_ID, String ZONE_ID)
     {
+        Log.d(TAG, "AdcolonyAdapter");
+
         _activity = activity;
         _zoneID = ZONE_ID;
         AdColony.configure(_activity, APP_ID, ZONE_ID);
+
 
         _listener = new AdColonyInterstitialListener()
         {
@@ -81,8 +84,11 @@ public class AdcolonyAdapter extends ActivityObserver
 
     void load()
     {
+        Log.d( TAG, "Load");
         if (isLoaded())
             return;
+
+        Log.d( TAG, "Load started");
 
         _ad = null;
         _activity.runOnUiThread(new Runnable() {
@@ -96,8 +102,12 @@ public class AdcolonyAdapter extends ActivityObserver
 
     void show()
     {
+        Log.d( TAG, "Show");
+        
         if (!isLoaded())
             return;
+
+        Log.d( TAG, "Show started");
 
         _activity.runOnUiThread(new Runnable() {
             @Override
@@ -122,6 +132,7 @@ public class AdcolonyAdapter extends ActivityObserver
 
     @Override
     public void onResume() {
+
     }
 
     @Override

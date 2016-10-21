@@ -25,10 +25,26 @@ namespace adcolony
 
 	void load()
 	{
+#if !ADCOLONY_EXT_ENABLED
+		return;
+#endif
+
+		log::messageln("adcolony::load");
+#ifdef __ANDROID__
+		jniAdcolonyLoad();
+#endif
 	}
 
 	void show()
 	{
+#if !ADCOLONY_EXT_ENABLED
+		return;
+#endif
+		
+		log::messageln("adcolony::show");
+#ifdef __ANDROID__
+		jniAdcolonyShow();
+#endif
 	}
 
     void init()

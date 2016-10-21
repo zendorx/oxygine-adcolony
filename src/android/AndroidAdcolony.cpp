@@ -24,11 +24,12 @@ bool isAdcolonyEnabled()
 
 extern "C"
 {
-	JNIEXPORT void JNICALL Java_org_oxygine_adcolony_AdcolonyAdapter_onNativeChange(JNIEnv* env, jobject obj, int newStatus)
+	JNIEXPORT void JNICALL Java_org_oxygine_adcolony_AdcolonyAdapter_onNativeChanged(JNIEnv* env, jobject obj, int newStatus)
 	{
-		core::getMainThreadMessages().postCallback([ = ]()
+		core::getMainThreadDispatcher().postCallback([ = ]()
 		{
-			onChangeStatus(newStatus);
+			//onChangeStatus(newStatus);
+            adcolony::internal::onChange(newStatus);
 		});
 	}
 	
@@ -100,7 +101,7 @@ bool jniAdcolonyIsLoaded()
 void jniAdcolonyLoad()
 {
 	if (!isAdcolonyEnabled())
-	        return false;
+	        return;
 
 	try
     {
@@ -116,13 +117,12 @@ void jniAdcolonyLoad()
     {
         log::error("jniAdcolonyLoad failed, class/member not found");
     }
-
 }
 
 void jniAdcolonyShow()
 {
 	if (!isAdcolonyEnabled())
-	        return false;
+	        return;
 
 	try
     {
@@ -160,7 +160,7 @@ void jniAdcolonyInit()
         _jAdcolonyClass = (jclass) env->NewGlobalRef(_jAdcolonyClass);
         JNI_NOT_NULL(_jAdcolonyClass);
 
-        _jFacebookObject = env->NewGlobalRef(jniFindExtension(env, _jAdcolonyClass));
+        _jAdcolonyObject = env->NewGlobalRef(jniFindExtension(env, _jAdcolonyClass));
         JNI_NOT_NULL(_jAdcolonyObject);
     }
     catch (const notFound&)

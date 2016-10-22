@@ -23,6 +23,20 @@ namespace adcolony
         return _dispatcher;
     }
 
+
+	bool isLoaded()
+	{
+#if !ADCOLONY_EXT_ENABLED
+		return false;
+#endif
+
+#ifdef __ANDROID__
+		return jniAdcolonyIsLoaded();
+#endif
+
+		return false;
+	}
+
 	void load()
 	{
 #if !ADCOLONY_EXT_ENABLED

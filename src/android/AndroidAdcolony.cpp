@@ -83,7 +83,7 @@ bool jniAdcolonyIsLoaded()
         JNIEnv* env = jniGetEnv();
         LOCAL_REF_HOLDER(env);
 
-        jmethodID jisloaded = env->GetMethodID(_jAdcolonyClass, "isLoggedIn", "()Z");
+        jmethodID jisloaded = env->GetMethodID(_jAdcolonyClass, "isLoaded", "()Z");
         JNI_NOT_NULL(jisloaded);
 
         jboolean jb = env->CallBooleanMethod(_jAdcolonyObject, jisloaded);
